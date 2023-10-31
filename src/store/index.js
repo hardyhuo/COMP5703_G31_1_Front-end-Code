@@ -16,10 +16,7 @@ const store = new Vuex.Store({
         },
         file: {
             // Fill file information
-            url: '',
-            method: '',
-            data: null,
-            transformRequest: null
+           list:[]
         },
         detail: {
             modelName: '',
@@ -38,10 +35,7 @@ const store = new Vuex.Store({
 
         },
         setFile(state, obj) {
-            state.model.url = obj.url
-            state.model.method = obj.method
-            state.model.data = obj.data
-            state.model.transformRequest = obj.transformRequest
+           state.file.list=obj.fileList
 
         },
         requestTranscribeResult(state) {
