@@ -16,7 +16,7 @@ const store = new Vuex.Store({
         },
         file: {
             // Fill file information
-           list:[]
+            list:[]
         },
         detail: {
             modelName: '',
@@ -24,7 +24,8 @@ const store = new Vuex.Store({
             engineName: '',
             pronDictName: '',
             status: '',
-        }
+        },
+
     },
     mutations: {
         setModel(state, obj) {
@@ -35,7 +36,7 @@ const store = new Vuex.Store({
 
         },
         setFile(state, obj) {
-           state.file.list=obj.fileList
+            state.file.list=obj.file
 
         },
         requestTranscribeResult(state) {

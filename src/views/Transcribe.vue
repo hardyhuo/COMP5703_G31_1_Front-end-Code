@@ -111,7 +111,7 @@
                 } else if (this.$store.state.model.engineName == "kaldi") {
                     console.log("Send kaldi model type")
                     axios({
-                        url: 'http://localhost:8091/kalid/set/model/',
+                        url: 'http://localhost:8091/kaldi/set/model/',
                         method: 'POST',
                         data: this.$store.state.model
 

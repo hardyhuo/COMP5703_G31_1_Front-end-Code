@@ -4,7 +4,8 @@
             <div style="text-align: left;margin-left: 10px">
                 <input type="file" @change="handleFileChange">
                 <audio controls id="myAudio" ref="audioPlayer">
-                    <source :src="this.audio_filepath" type="audio/wav">
+                  <source :src="this.audio_filepath" type="audio/wav">
+<!--                  {{$store.state.file.list[0]}}-->
                 </audio>
 
                 <!--        <audio controls id="myAudio" ref="audioPlayer">-->
@@ -58,7 +59,7 @@ export default {
     return {
       results: [],
       eaf_filepath:'20170726-AK-005.eaf',
-      audio_filepath:"@/assets/20170726-AK-005.wav",
+      audio_filepath:this.$store.state.file.list[0],
       eaf_content:""
     }
   },
@@ -244,8 +245,19 @@ export default {
     saveTranscription(result){
 
       result.isEditing=false
-    }
+    },
 
+  },
+  computed: {
+    audioUrl() {
+      const audioData = this.$store.state.file.list[0];
+      if (!audioData) {
+        return '';
+      }
+      const blob = new Blob([audioData], { type: 'audio/wav' });  // Change 'audio/wav' to the correct mime type of your audio file
+      console.log(blob)
+      return URL.createObjectURL(blob);
+    }
   },
   mounted() {
     const audioPlayer = this.$refs.audioPlayer;
