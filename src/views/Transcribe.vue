@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div id="modelInfoTable">
+        <div class="modelInfoTable" v-loading="isLoading">
             <table class="model-table">
                 <thead>
                 <tr id="tableHead">
@@ -44,7 +44,7 @@
                 </tbody>
             </table>
             <router-link to="/upload">
-                <button class="confirmButton" @click="confirmFun()">Confirm</button>
+                <button class="confirmButton" @click="confirmFun()" v-show="!isLoading">Confirm</button>
             </router-link>
         </div>
     </div>
@@ -58,7 +58,8 @@
             return {
                 name: "transcribe",
                 language: "",
-                list: []
+                list: [],
+                isLoading: true
             };
         },
         methods: {
@@ -93,8 +94,8 @@
                     pronDictMapName: newList.pron_dict_name
                 })
 
-               // console.log(this.$store.state.model.engineName)
-               // console.log("Prepare to send info to back end")
+                // console.log(this.$store.state.model.engineName)
+                // console.log("Prepare to send info to back end")
 
                 if (this.$store.state.model.engineName == "hft") {
                     console.log("Send hft model type")
@@ -127,9 +128,9 @@
 
             }
         },
-        created() {
+        async created() {
 
-            axios({
+            await axios({
                 url: 'http://localhost:8091/list/models',
             }).then(result => {
                 this.list = JSON.parse(result.data.data).data.list
@@ -138,6 +139,18 @@
             }).catch(err => {
                 console.log(err)
             })
+            this.isLoading = false
+
+        },
+        directives: {
+            loading: {
+                inserted(el, binding) {
+                    binding.value ? el.classList.add('loading') : el.classList.remove('loading')
+                },
+                update(el, binding) {
+                    binding.value ? el.classList.add('loading') : el.classList.remove('loading')
+                }
+            }
         }
     }
 </script>
@@ -252,7 +265,17 @@
         padding: 10px;
     }
 
-    #modelInfoTable {
+    .modelInfoTable {
         margin-top: 20px;
+    }
+
+    .loading:before {
+        content: '';
+        position: absolute;
+        left: 30%;
+        top: 34%;
+        width: 55%;
+        height: 37%;
+        background: #fff url('../assets/loading.gif') no-repeat center;
     }
 </style>
