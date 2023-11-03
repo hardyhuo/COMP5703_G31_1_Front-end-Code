@@ -93,7 +93,10 @@ export default {
           });
     },
     checkModel1(){
-      console.log(this.$store.state.model.engineName)
+      this.$store.commit('setFile',{
+        file:this.fileList[0]
+      })
+      console.log(this.$store.state.file.list)
       if(this.$store.state.model.engineName === 'kaldi')
         this.submitUploadKaldi();
       else

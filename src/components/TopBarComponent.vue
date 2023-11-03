@@ -46,8 +46,7 @@
                 const now = new Date();
                 const formattedData = now.toLocaleDateString()
                 const formattedTime = now.toTimeString()
-                this.currentTime = formattedData + " " + formattedTime.substring(0,18);
-                console.log(this.currentTime)
+                this.currentTime = formattedData + " " + formattedTime;
             }
         }
     }

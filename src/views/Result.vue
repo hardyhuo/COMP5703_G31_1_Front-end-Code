@@ -4,13 +4,15 @@
             <div style="text-align: left;margin-left: 10px">
                 <input type="file" @change="handleFileChange">
                 <audio controls id="myAudio" ref="audioPlayer">
+<!--                  <source :src="audioUrl" type="audio/wav">-->
                   <source :src="this.audio_filepath" type="audio/wav">
 <!--                  {{$store.state.file.list[0]}}-->
                 </audio>
 
-                <!--        <audio controls id="myAudio" ref="audioPlayer">-->
-                <!--          <source src="@/assets/20170726-AK-005.wav" type="audio/wav">-->
-                <!--        </audio>-->
+<!--                        <audio controls id="myAudio" ref="audioPlayer">-->
+<!--                          <source :src="audioUrl" type="audio/wav">-->
+<!--&lt;!&ndash;                          <source src="@/assets/20170726-AK-005.wav" type="audio/wav">&ndash;&gt;-->
+<!--                        </audio>-->
             </div>
             <!--      <div style="text-align: left;margin-left: 10px">-->
             <!--&lt;!&ndash;        <button @click="loadEAF">加载EAF文件</button>&ndash;&gt;-->
@@ -52,6 +54,7 @@
 <script>
 
 import request from "@/utils/request";
+import {computed} from "vue";
 
 export default {
   name: 'TranscriptionView',
@@ -59,7 +62,7 @@ export default {
     return {
       results: [],
       eaf_filepath:'20170726-AK-005.eaf',
-      audio_filepath:this.$store.state.file.list[0],
+      audio_filepath:"",
       eaf_content:""
     }
   },
@@ -246,24 +249,36 @@ export default {
 
       result.isEditing=false
     },
+    audioUrl1(){
+      const file1=this.$store.state.file.list;
+      console.log(this.$store.state.file.list)
+      const blob =new Blob([file1.raw], { type: 'audio/wav' });
+      // console.log(URL.createObjectURL(blob))
+
+      this.audio_filepath=URL.createObjectURL(blob);
+    }
 
   },
-  computed: {
-    audioUrl() {
-      const audioData = this.$store.state.file.list[0];
-      if (!audioData) {
-        return '';
-      }
-      const blob = new Blob([audioData], { type: 'audio/wav' });  // Change 'audio/wav' to the correct mime type of your audio file
-      console.log(blob)
-      return URL.createObjectURL(blob);
-    }
-  },
+  // computed: {
+  //   audioData() {
+  //     return ;
+  //   },
+  //   audioUrl() {
+  //     if (this.audioData) {
+  //       const blob = new Blob([this.audioData], { type: 'audio/wav' });
+  //       console.log(URL.createObjectURL(blob))
+  //       return URL.createObjectURL(blob);
+  //     }
+  //     return '';
+  //   },
+  // },
   mounted() {
     const audioPlayer = this.$refs.audioPlayer;
     audioPlayer.addEventListener('timeupdate', this.handleTimeUpdate);
     // this.loadEAF();
     this.get_EAF();//  获取数据
+    this.audioUrl1()
+
   },
   beforeDestroy() {
     // 在组件销毁前移除事件监听器
