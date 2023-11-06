@@ -35,60 +35,60 @@ export default {
       this.disabledValue = false;
     },
     checkIfFinishHFT() {
-      // 设置isDataReceived为false，表示请求已开始但尚未接收响应
+
       this.isDataReceived = true;
 
-      // 调用后端接口
+
       Request.get('/hft/transcribe2')
           .then(res => {
             let parsedData = JSON.parse(res.data);
             let statusCode = parsedData.status;
             console.log('Status:', statusCode);
 
-            // 检查状态是否为200
+
             if (statusCode === 200) {
               this.$message({ message: 'Transcription completed!', type: 'success' });
             } else {
               this.$message({ message: 'Status is not 200.', type: 'error' });
             }
 
-            // 设置isDataReceived为true，表示已接收到响应
+
             this.isDataReceived = false;
           })
           .catch(error => {
             console.log('Check error:', error); // for debug
             this.$message({ message: 'Failed to check: ' + error, type: 'error' });
 
-            // 如果希望错误响应也将isDataReceived设置为true，可以在此处再次设置
+
             // this.isDataReceived = true;
           });
     },
     checkIfFinishKaldi() {
-      // 设置isDataReceived为false，表示请求已开始但尚未接收响应
+
       this.isDataReceived = true;
 
-      // 调用后端接口
+
       Request.get('/kaldi/transcribe2')
           .then(res => {
             let parsedData = JSON.parse(res.data);
             let statusCode = parsedData.status;
             console.log('Status:', statusCode);
 
-            // 检查状态是否为200
+
             if (statusCode === 200) {
               this.$message({ message: 'Transcription completed!', type: 'success' });
             } else {
               this.$message({ message: 'Status is not 200.', type: 'error' });
             }
 
-            // 设置isDataReceived为true，表示已接收到响应
+
             this.isDataReceived = false;
           })
           .catch(error => {
             console.log('Check error:', error); // for debug
             this.$message({ message: 'Failed to check: ' + error, type: 'error' });
 
-            // 如果希望错误响应也将isDataReceived设置为true，可以在此处再次设置
+
             // this.isDataReceived = true;
           });
     },

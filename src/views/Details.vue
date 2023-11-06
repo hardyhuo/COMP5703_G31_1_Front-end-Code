@@ -74,10 +74,10 @@
 
     .container {
         display: flex;
-        justify-content: center; /* 水平居中 */
-        align-items: center; /* 垂直居中 */
+        justify-content: center;
+        align-items: center;
         background-color: #f0f0f0;
-        height: 100vh; /* 使容器铺满整个屏幕高度 */
+        height: 100vh;
     }
 
     .box1 {

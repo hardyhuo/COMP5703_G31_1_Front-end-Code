@@ -80,11 +80,11 @@ export default {
     // //Upload the eaf file
     async loadEAF() {
       try {
-        // 使用 fetch 获取EAF文件
+
         //use fetch to visit the eaf file
         const response = await fetch(this.eaf_filepath);
 
-        // 确保响应状态为成功
+
         if (!response.ok) {
           throw new Error('Failed to load EAF file');
         }
@@ -106,7 +106,7 @@ export default {
 
       const result = [];
 
-      // 处理时间槽
+
       const timeSlotMap = {};
       for (let i = 0; i < timeSlots.length; i++) {
         const timeSlot = timeSlots[i];
@@ -114,7 +114,7 @@ export default {
         timeSlotMap[id] = timeSlot.getAttribute('TIME_VALUE');
       }
 
-      // 处理标注
+
       for (let i = 0; i < annotations.length; i++) {
         const annotation = annotations[i];
         const id = annotation.getAttribute('ANNOTATION_ID');
@@ -122,8 +122,8 @@ export default {
         const endId = annotation.getAttribute('TIME_SLOT_REF2');
         const content = annotation.getElementsByTagName('ANNOTATION_VALUE')[0].textContent;
 
-        const start = timeSlotMap[startId] / 1000; // 转换为秒
-        const end = timeSlotMap[endId] / 1000; // 转换为秒
+        const start = timeSlotMap[startId] / 1000;
+        const end = timeSlotMap[endId] / 1000;
         const isSelected=false;
         const isEditing=false;
 
@@ -152,15 +152,15 @@ export default {
       const results=this.results;
 
       const xmlDoc = parser.parseFromString(originalEAFContent, 'application/xml');
-      // 遍历 result 数组
+
       for (let i = 0; i < results.length; i++) {
         const resultsItem = results[i];
         const id = resultsItem.id;
         const content = resultsItem.content;
-        // 寻找匹配的 ANNOTATION 元素
+
         const annotationElement = xmlDoc.querySelector(`[ANNOTATION_ID="${id}"] ANNOTATION_VALUE`);
         if (annotationElement) {
-          // 更新 ANNOTATION_VALUE 内容
+
           annotationElement.textContent = content;
         }
       }
@@ -234,7 +234,7 @@ export default {
       const file = event.target.files[0];
       if (file) {
         this.audio_filepath = URL.createObjectURL(file);
-        this.$refs.audioPlayer.load(); // 重新加载音频
+        this.$refs.audioPlayer.load();
       }
     },
 
@@ -262,12 +262,12 @@ export default {
     const audioPlayer = this.$refs.audioPlayer;
     audioPlayer.addEventListener('timeupdate', this.handleTimeUpdate);
     // this.loadEAF();
-    this.get_EAF();//  获取数据
+    this.get_EAF();
     this.audioUrl1()
 
   },
   beforeDestroy() {
-    // 在组件销毁前移除事件监听器
+
     //destroy the listener
     const audioPlayer = this.$refs.audioPlayer;
     audioPlayer.removeEventListener('timeupdate', this.handleTimeUpdate);
