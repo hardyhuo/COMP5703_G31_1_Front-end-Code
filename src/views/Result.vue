@@ -61,16 +61,18 @@ export default {
   data() {
     return {
       results: [],
-      eaf_filepath:'20170726-AK-005.eaf',
+      eaf_filepath:'',
       audio_filepath:"",
-      eaf_content:""
+      eaf_content:"",
+      eaf_name:""
     }
   },
   methods:{
     get_EAF(){
       request.get("/transcribe/result/elan").then(res => {
         const result=JSON.parse(res.data).data.elan;
-        console.log(result);
+        // console.log(result);
+        this.eaf_content=result
         this.results=this.parseEAF(result);
       })
     },
@@ -148,17 +150,15 @@ export default {
       // console.log(this.eaf_content)
       const originalEAFContent=this.eaf_content;
       const results=this.results;
-      const xmlDoc = parser.parseFromString(originalEAFContent, 'application/xml');
 
+      const xmlDoc = parser.parseFromString(originalEAFContent, 'application/xml');
       // 遍历 result 数组
       for (let i = 0; i < results.length; i++) {
         const resultsItem = results[i];
         const id = resultsItem.id;
         const content = resultsItem.content;
-
         // 寻找匹配的 ANNOTATION 元素
         const annotationElement = xmlDoc.querySelector(`[ANNOTATION_ID="${id}"] ANNOTATION_VALUE`);
-
         if (annotationElement) {
           // 更新 ANNOTATION_VALUE 内容
           annotationElement.textContent = content;
@@ -167,9 +167,8 @@ export default {
 
       // 将 xmlDoc 转换为字符串
       this.eaf_content = new XMLSerializer().serializeToString(xmlDoc);
-
       // console.log(updatedEAFContent);
-      this.downloadFile('20170726-AK-005_1.eaf');
+      this.downloadFile(this.eaf_name+'.eaf');
     },
 
     //download the eaf file
@@ -253,25 +252,12 @@ export default {
       const file1=this.$store.state.file.list;
       console.log(this.$store.state.file.list)
       const blob =new Blob([file1.raw], { type: 'audio/wav' });
-      // console.log(URL.createObjectURL(blob))
+      this.eaf_name=file1.name.slice(0,-4);
 
       this.audio_filepath=URL.createObjectURL(blob);
     }
 
   },
-  // computed: {
-  //   audioData() {
-  //     return ;
-  //   },
-  //   audioUrl() {
-  //     if (this.audioData) {
-  //       const blob = new Blob([this.audioData], { type: 'audio/wav' });
-  //       console.log(URL.createObjectURL(blob))
-  //       return URL.createObjectURL(blob);
-  //     }
-  //     return '';
-  //   },
-  // },
   mounted() {
     const audioPlayer = this.$refs.audioPlayer;
     audioPlayer.addEventListener('timeupdate', this.handleTimeUpdate);
