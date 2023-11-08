@@ -45,7 +45,7 @@
             updateTime() {
                 const now = new Date();
                 const formattedData = now.toLocaleDateString()
-                const formattedTime = now.toTimeString()
+                const formattedTime = now.toTimeString().substring(0,18)
                 this.currentTime = formattedData + " " + formattedTime;
             }
         }

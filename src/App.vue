@@ -42,21 +42,7 @@
 </template>
 
 <style>
-  .el-menu{
-    border-right: none !important;
-  }
-  .el-header{
-    display: flex;
-    //justify-content: space-between;
-  }
-  .box{
-    display: inline-block;
-    margin-left: 50px;
-    margin-right: 50px;
-    border: 1px solid black;
-    padding: 20px;
-    box-sizing: border-box;
-  }
+
   img{
     width: 100%;
     height: 100%;
@@ -89,6 +75,17 @@
       '$route'(){
         const routeMetaTitle = this.$route.meta.title;
         this.headerText = routeMetaTitle || 'default'
+      }
+    },
+    methods:{
+      handleOpen(){
+
+      },
+      handleClose(){
+
+      },
+      open(){
+
       }
     }
   }
