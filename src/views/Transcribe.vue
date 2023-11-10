@@ -71,7 +71,7 @@
                     engineName: obj.engine_name,
                     pronDictName: obj.pron_dict_name,
                     status: obj.status,
-                    accuracy:obj.status.count_val
+                    accuracy:obj.results.count_valg
                 })
                 // console.log(this.$store.state)
             },

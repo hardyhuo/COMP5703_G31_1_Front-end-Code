@@ -40,7 +40,7 @@
 
                 <tr>
                     <td>Result:</td>
-                    <td>The training was completed, and the model translated this speech or similar speech with more than 80% accuracy</td>
+                    <td>Null</td>
                 </tr>
             </table>
         </div>
