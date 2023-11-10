@@ -24,6 +24,7 @@ const store = new Vuex.Store({
             engineName: '',
             pronDictName: '',
             status: '',
+            accuracy:''
         },
 
     },
@@ -58,6 +59,7 @@ const store = new Vuex.Store({
             state.detail.engineName = obj.engineName
             state.detail.pronDictName = obj.pronDictName
             state.detail.status = obj.status
+            state.detail.accuracy = obj.accuracy
 
         },
         clearDetail(state) {
@@ -66,6 +68,7 @@ const store = new Vuex.Store({
             state.detail.enginename = ''
             state.detail.prondictname = ''
             state.detail.status = ''
+            state.detail.accuracy = ''
         }
 
 

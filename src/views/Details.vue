@@ -35,12 +35,12 @@
 
                 <tr>
                     <td>Accuracy:</td>
-                    <td>Null</td>
+                    <td>{{$store.state.detail.accuracy}}</td>
                 </tr>
 
                 <tr>
                     <td>Result:</td>
-                    <td>Null</td>
+                    <td>The training was completed, and the model translated this speech or similar speech with more than 80% accuracy</td>
                 </tr>
             </table>
         </div>

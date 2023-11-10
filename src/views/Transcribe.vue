@@ -70,7 +70,8 @@
                     dataSetName: obj.dataset_name,
                     engineName: obj.engine_name,
                     pronDictName: obj.pron_dict_name,
-                    status: obj.status
+                    status: obj.status,
+                    accuracy:obj.status.count_val
                 })
                 // console.log(this.$store.state)
             },
@@ -135,6 +136,7 @@
             }).then(result => {
                 this.list = JSON.parse(result.data.data).data.list
                 console.log(this.list)
+
 
             }).catch(err => {
                 console.log(err)

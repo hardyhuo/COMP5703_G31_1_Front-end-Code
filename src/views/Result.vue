@@ -316,6 +316,7 @@ export default {
   .save_button{
     margin-left: auto;
     margin-right: 10px;
+    margin: 50px;
   }
 
 
