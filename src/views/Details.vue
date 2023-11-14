@@ -40,7 +40,10 @@
 
                 <tr>
                     <td>Result:</td>
-                    <td>Null</td>
+                    <td>
+                        <span v-if="isNaN(accuracyAcount)">The model has not been trained</span>
+                        <span v-else>{{ accuracyAcount.toFixed(2) }}%</span>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -57,6 +60,15 @@
                 language: "",
 
             };
+        },
+        computed: {
+            accuracyAcount() {
+                const num = this.$store.state.detail.accuracy
+               // const num = "3/7"
+                let correctNum = num.split('/')
+                console.log(correctNum[0] / correctNum[1])
+                return correctNum[0] / correctNum[1] * 100
+            }
         },
         created() {
 
